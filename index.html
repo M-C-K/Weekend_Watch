@@ -649,58 +649,79 @@ async function doFetch(genreKey, mediaType) {
     const gid  = gids ? gids[mediaType] : null;
     const page = Math.floor(Math.random() * 8) + 1;
 
-    // Try with region filter first; fall back without if empty
-    let path = `/discover/${mediaType}?sort_by=popularity.desc&page=${page}&include_adult=false&language=en-US&watch_region=${selRegion}&with_watch_monetization_types=flatrate`;
+    // Step 1: discover by genre only — no region filter so we always get a full pool
+    let path = `/discover/${mediaType}?sort_by=popularity.desc&page=${page}&include_adult=false&language=en-US`;
     if (gid) path += `&with_genres=${gid}`;
 
-    let data = await tmdbGet(path);
+    const data    = await tmdbGet(path);
+    const results = (data.results || []).filter(r => r.overview && r.overview.length > 20);
+    if (results.length === 0) throw new Error('No results for this genre');
 
-    // If region filter returns nothing, retry without it
-    if (!data.results || data.results.length === 0) {
-      let fallback = `/discover/${mediaType}?sort_by=popularity.desc&page=${page}&include_adult=false&language=en-US`;
-      if (gid) fallback += `&with_genres=${gid}`;
-      data = await tmdbGet(fallback);
+    // Step 2: shuffle pool, then walk up to 5 candidates looking for one
+    //         that has flatrate streaming in the user's selected region.
+    const shuffled = [...results].sort(() => Math.random() - 0.5);
+    const candidates = shuffled.slice(0, 5);
+
+    let chosen    = candidates[0];
+    let providers = [];
+    let watchLink = `https://www.themoviedb.org/${mediaType}/${chosen.id}`;
+    let regionFound = false;
+
+    for (const candidate of candidates) {
+      try {
+        const provData = await tmdbGet(`/${mediaType}/${candidate.id}/watch/providers`);
+        const reg      = provData.results?.[selRegion] || {};
+        const prov     = reg.flatrate || reg.rent || reg.buy || [];
+        if (prov.length > 0) {
+          chosen      = candidate;
+          providers   = prov;
+          watchLink   = reg.link || watchLink;
+          regionFound = true;
+          break;
+        }
+      } catch(_) { /* keep trying */ }
     }
 
-    const results = data.results;
-    if (!results || results.length === 0) throw new Error('No results returned for this genre');
-
-    const good = results.filter(r => r.overview && r.overview.length > 20);
-    const pool = good.length > 0 ? good : results;
-    const item = pool[Math.floor(Math.random() * pool.length)];
-
-    // Watch providers (non-fatal if it fails)
-    let providers = [], watchLink = `https://www.themoviedb.org/${mediaType}/${item.id}`;
-    try {
-      const provData  = await tmdbGet(`/${mediaType}/${item.id}/watch/providers`);
-      const region    = provData.results?.[selRegion] || {};
-      providers = region.flatrate || region.rent || region.buy || [];
-      if (region.link) watchLink = region.link;
-    } catch(_) { /* providers unavailable — not fatal */ }
+    // Step 3: if nothing matched the region, still show the first candidate
+    //         but fetch its providers anyway (any region) as fallback display
+    if (!regionFound) {
+      try {
+        const provData = await tmdbGet(`/${mediaType}/${chosen.id}/watch/providers`);
+        const reg      = provData.results?.[selRegion] || {};
+        providers = reg.flatrate || reg.rent || reg.buy || [];
+        watchLink = reg.link || watchLink;
+      } catch(_) {}
+    }
 
     renderResult({
-      title:     item.title || item.name || 'Untitled',
-      year:      (item.release_date || item.first_air_date || '').slice(0, 4),
-      poster:    item.poster_path ? IMG_W500 + item.poster_path : null,
-      rating:    item.vote_average ? item.vote_average.toFixed(1) : null,
-      votes:     item.vote_count  ? item.vote_count.toLocaleString() : '',
-      overview:  item.overview || '',
-      typeLabel: mediaType === 'movie' ? 'Movie' : 'TV Show',
-      providers, watchLink, genreKey,
+      title:       item(chosen, 'title'),
+      year:        (chosen.release_date || chosen.first_air_date || '').slice(0, 4),
+      poster:      chosen.poster_path ? IMG_W500 + chosen.poster_path : null,
+      rating:      chosen.vote_average ? chosen.vote_average.toFixed(1) : null,
+      votes:       chosen.vote_count   ? chosen.vote_count.toLocaleString() : '',
+      overview:    chosen.overview || '',
+      typeLabel:   mediaType === 'movie' ? 'Movie' : 'TV Show',
+      regionFound, providers, watchLink, genreKey,
     });
 
   } catch (err) {
     console.error('[TMDB]', err);
     showError(`<b>Error:</b> ${err.message}<br><br>
       <small style="opacity:.6">Key: ${API_KEY.slice(0,8)}…&nbsp;|&nbsp;${TMDB}</small><br><br>
-      Try spinning again. If this repeats, the API key may need activation at themoviedb.org`);
+      Try spinning again.`);
   }
+}
+
+// helper — title for movie vs tv
+function item(r, field) {
+  if (field === 'title') return r.title || r.name || 'Untitled';
+  return r[field];
 }
 
 /* ═══════════════════════════════════
    RENDER
    ═══════════════════════════════════ */
-function renderResult({ title, year, poster, rating, votes, overview, typeLabel, providers, watchLink, genreKey }) {
+function renderResult({ title, year, poster, rating, votes, overview, typeLabel, providers, watchLink, genreKey, regionFound }) {
   hideAll();
 
   document.getElementById('rGenre').textContent = genreKey;
@@ -732,9 +753,11 @@ function renderResult({ title, year, poster, rating, votes, overview, typeLabel,
   document.getElementById('rYearLang').textContent = year || '';
   document.getElementById('rOverview').textContent = overview;
 
-  // Region label
+  // Region label — show a warning if nothing streamed in the region
   const regionName = Object.entries(REGIONS).find(([,c]) => c === selRegion)?.[0] || selRegion;
-  document.getElementById('rRegionLabel').textContent = regionName;
+  const regionLabelEl = document.getElementById('rRegionLabel');
+  regionLabelEl.textContent = regionName;
+  regionLabelEl.style.color = regionFound === false ? 'rgba(255,140,100,0.8)' : '';
 
   // Providers
   const provRow = document.getElementById('providersRow');
