@@ -36,19 +36,11 @@ body {
 }
 
 /* ── Title ── */
-.title-wrap { margin-top: 26px; text-align: center; }
+.title-wrap { margin-top: 24px; text-align: center; }
 .crown { font-size: 20px; color: #d4af37; letter-spacing: 18px; display: block; margin-bottom: 2px; }
-.title {
-  font-size: clamp(26px, 4.5vw, 44px);
-  letter-spacing: 10px; color: #d4af37;
-  text-transform: uppercase; font-weight: normal;
-  text-shadow: 0 2px 12px rgba(180,130,20,0.3);
-}
+.title { font-size: clamp(26px, 4.5vw, 44px); letter-spacing: 10px; color: #d4af37; text-transform: uppercase; font-weight: normal; text-shadow: 0 2px 12px rgba(180,130,20,0.3); }
 .subtitle { font-size: 11px; letter-spacing: 5px; color: #c9a84c; margin-top: 6px; text-transform: uppercase; opacity: 0.8; }
-.gold-divider {
-  display: flex; align-items: center; gap: 12px;
-  margin: 12px auto 0; width: 300px;
-}
+.gold-divider { display: flex; align-items: center; gap: 12px; margin: 12px auto 0; width: 300px; }
 .gold-divider::before { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, #c9a840); }
 .gold-divider::after  { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, #c9a840, transparent); }
 .gold-divider span { color: #d4af37; font-size: 14px; }
@@ -57,27 +49,21 @@ body {
 .layout {
   display: flex; align-items: flex-start;
   gap: 32px; margin-top: 24px;
-  padding: 0 20px; width: 100%; max-width: 1000px;
+  padding: 0 20px; width: 100%; max-width: 1020px;
   justify-content: center; flex-wrap: wrap;
 }
 
-/* ── Wheel ── */
+/* ── Wheel col ── */
 .wheel-col { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
 .pointer-wrap {
   width: 0; height: 0;
-  border-left: 12px solid transparent;
-  border-right: 12px solid transparent;
-  border-top: 22px solid #d4af37;
-  margin-bottom: -11px; z-index: 10;
+  border-left: 12px solid transparent; border-right: 12px solid transparent;
+  border-top: 22px solid #d4af37; margin-bottom: -11px; z-index: 10;
   filter: drop-shadow(0 3px 6px rgba(0,0,0,0.7));
 }
 #wc {
   display: block; cursor: pointer; border-radius: 50%;
-  box-shadow:
-    0 0 0 4px #c9a840,
-    0 0 0 8px #3d1f0a,
-    0 12px 50px rgba(0,0,0,0.7),
-    0 4px 20px rgba(0,0,0,0.5);
+  box-shadow: 0 0 0 4px #c9a840, 0 0 0 8px #3d1f0a, 0 12px 50px rgba(0,0,0,0.7);
 }
 .chip-row { display: flex; gap: 8px; margin-top: 16px; }
 .casino-chip {
@@ -86,17 +72,12 @@ body {
   font-size: 11px; font-weight: bold; font-family: Arial, sans-serif;
   position: relative; box-shadow: 0 3px 8px rgba(0,0,0,0.5);
 }
-.casino-chip::before {
-  content: ''; position: absolute; inset: 3px;
-  border-radius: 50%; border: 1.5px dashed rgba(255,255,255,0.3);
-}
+.casino-chip::before { content: ''; position: absolute; inset: 3px; border-radius: 50%; border: 1.5px dashed rgba(255,255,255,0.3); }
 .spin-btn {
   margin-top: 18px; padding: 14px 52px;
   background: #c9a840; color: #1a0800;
-  font-size: 16px; font-weight: bold;
-  letter-spacing: 5px; text-transform: uppercase;
-  border: none; border-radius: 3px; cursor: pointer;
-  font-family: Georgia, serif;
+  font-size: 16px; font-weight: bold; letter-spacing: 5px; text-transform: uppercase;
+  border: none; border-radius: 3px; cursor: pointer; font-family: Georgia, serif;
   box-shadow: 0 4px 20px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.4);
   transition: transform 0.1s, background 0.15s;
 }
@@ -104,101 +85,125 @@ body {
 .spin-btn:active { transform: scale(0.97); }
 .spin-btn:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
 
-/* ── Side panel ── */
-.side-col { width: 262px; display: flex; flex-direction: column; gap: 12px; margin-top: 12px; flex-shrink: 0; }
-.box {
-  background: rgba(0,0,0,0.38); border: 1px solid rgba(201,168,64,0.28);
-  border-radius: 6px; padding: 14px; backdrop-filter: blur(2px);
-}
+/* ── Side col ── */
+.side-col { width: 280px; display: flex; flex-direction: column; gap: 12px; margin-top: 12px; flex-shrink: 0; }
+.box { background: rgba(0,0,0,0.38); border: 1px solid rgba(201,168,64,0.28); border-radius: 6px; padding: 14px; backdrop-filter: blur(2px); }
 .box-title { font-size: 10px; letter-spacing: 3.5px; color: #d4af37; text-transform: uppercase; margin-bottom: 10px; }
 
-/* Genre chips */
-.genre-grid { display: flex; flex-wrap: wrap; gap: 6px; }
-.genre-btn {
+/* Genre / filter chips */
+.chip-grid { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip-btn {
   padding: 5px 10px; border: 1px solid rgba(201,168,64,0.32);
   border-radius: 3px; font-size: 10px; letter-spacing: 1.5px;
-  color: #c9a84c; background: transparent;
-  cursor: pointer; font-family: Georgia, serif;
-  text-transform: uppercase; transition: all 0.15s;
+  color: #c9a84c; background: transparent; cursor: pointer;
+  font-family: Georgia, serif; text-transform: uppercase; transition: all 0.15s;
 }
-.genre-btn:hover { background: rgba(201,168,64,0.12); border-color: rgba(201,168,64,0.55); }
-.genre-btn.sel { background: rgba(201,168,64,0.22); border-color: #d4af37; color: #f5e6c8; }
+.chip-btn:hover { background: rgba(201,168,64,0.12); border-color: rgba(201,168,64,0.55); }
+.chip-btn.sel { background: rgba(201,168,64,0.22); border-color: #d4af37; color: #f5e6c8; }
 
-/* Filter rows */
-.filter-row { display: flex; flex-wrap: wrap; gap: 6px; }
-.filter-btn {
-  padding: 4px 9px; border: 1px solid rgba(201,168,64,0.25);
-  border-radius: 3px; font-size: 9px; letter-spacing: 1px;
-  color: rgba(201,168,64,0.65); background: transparent;
-  cursor: pointer; font-family: Arial, sans-serif;
-  text-transform: uppercase; transition: all 0.15s;
+/* ── Loading state ── */
+.loading-box { display: none; text-align: center; padding: 28px 14px; }
+.loading-box.show { display: block; }
+.spinner {
+  width: 36px; height: 36px; border-radius: 50%;
+  border: 3px solid rgba(201,168,64,0.2);
+  border-top-color: #d4af37;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 12px;
 }
-.filter-btn:hover { background: rgba(201,168,64,0.08); }
-.filter-btn.sel { background: rgba(201,168,64,0.18); border-color: #c9a840; color: #f5e6c8; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.loading-genre { font-size: 10px; letter-spacing: 3px; color: #d4af37; text-transform: uppercase; }
 
-/* Stats bar */
-.stats-bar {
-  font-size: 10px; color: rgba(201,168,64,0.5);
-  letter-spacing: 1px; text-align: center;
-  padding: 6px 0 0;
-}
-
-/* Result card */
+/* ── Result card ── */
 .result-box { display: none; animation: slideIn 0.4s ease; }
 .result-box.show { display: block; }
-@keyframes slideIn {
-  from { opacity: 0; transform: translateY(8px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
+@keyframes slideIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
 .r-genre {
   font-size: 9px; letter-spacing: 4px; color: #d4af37;
-  text-transform: uppercase; margin-bottom: 6px;
+  text-transform: uppercase; margin-bottom: 8px;
   display: flex; align-items: center; gap: 8px;
 }
 .r-genre::before, .r-genre::after { content: '◆'; font-size: 7px; color: #c9a840; }
-.r-title { font-size: 18px; color: #f5e6c8; margin-bottom: 8px; line-height: 1.3; }
-.r-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 4px; }
-.ott {
-  padding: 3px 9px; border-radius: 3px;
-  font-size: 10px; font-weight: bold; letter-spacing: 1px;
-  text-transform: uppercase; font-family: Arial, sans-serif;
+
+.r-content { display: flex; gap: 10px; margin-bottom: 10px; }
+.r-poster {
+  width: 80px; height: 120px; object-fit: cover;
+  border-radius: 4px; flex-shrink: 0;
+  border: 1px solid rgba(201,168,64,0.3);
+  background: rgba(0,0,0,0.4);
 }
-.type-badge {
-  padding: 3px 9px; border-radius: 3px; font-size: 10px;
-  letter-spacing: 1px; text-transform: uppercase;
-  font-family: Arial, sans-serif; background: rgba(201,168,64,0.18);
-  color: #d4af37; border: 1px solid rgba(201,168,64,0.3);
+.r-poster-ph {
+  width: 80px; height: 120px; flex-shrink: 0;
+  border-radius: 4px; border: 1px solid rgba(201,168,64,0.2);
+  background: rgba(0,0,0,0.4);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 28px; color: rgba(201,168,64,0.3);
 }
-.imdb { font-size: 13px; color: #f5c518; letter-spacing: 0.5px; }
-.r-sub {
-  font-size: 11px; color: rgba(245,230,200,0.45);
-  margin-bottom: 10px; letter-spacing: 0.5px;
+.r-info { flex: 1; min-width: 0; }
+.r-title { font-size: 15px; color: #f5e6c8; margin-bottom: 6px; line-height: 1.3; }
+.r-badges { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 6px; }
+.badge {
+  padding: 2px 8px; border-radius: 3px; font-size: 10px;
+  font-weight: bold; letter-spacing: 1px; font-family: Arial, sans-serif;
 }
-.r-desc { font-size: 12.5px; color: rgba(245,230,200,0.75); line-height: 1.65; margin-bottom: 12px; }
-.btn-row { display: flex; gap: 8px; }
+.r-rating { font-size: 13px; color: #f5c518; margin-bottom: 4px; }
+.r-year-lang { font-size: 11px; color: rgba(245,230,200,0.45); }
+
+.r-overview {
+  font-size: 12px; color: rgba(245,230,200,0.72); line-height: 1.6;
+  margin-bottom: 10px;
+  display: -webkit-box; -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical; overflow: hidden;
+}
+
+/* Providers */
+.r-providers-label { font-size: 9px; letter-spacing: 2.5px; color: rgba(201,168,64,0.6); text-transform: uppercase; margin-bottom: 7px; }
+.providers-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-bottom: 12px; }
+.provider-item {
+  display: flex; align-items: center; gap: 5px;
+  padding: 4px 8px; border-radius: 4px;
+  background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1);
+  cursor: pointer; text-decoration: none; transition: background 0.15s;
+}
+.provider-item:hover { background: rgba(255,255,255,0.15); }
+.provider-logo { width: 20px; height: 20px; border-radius: 4px; }
+.provider-name { font-size: 10px; color: #f5e6c8; font-family: Arial, sans-serif; }
+.no-provider { font-size: 11px; color: rgba(245,230,200,0.4); font-style: italic; }
+
+/* Buttons */
+.btn-row { display: flex; gap: 7px; margin-bottom: 10px; }
 .r-btn {
-  flex: 1; padding: 8px 10px; background: transparent;
+  flex: 1; padding: 8px 6px; background: transparent;
   border: 1px solid rgba(201,168,64,0.35); color: #c9a84c;
-  font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+  font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase;
   cursor: pointer; font-family: Georgia, serif; border-radius: 3px;
-  transition: background 0.15s, color 0.15s;
+  transition: background 0.15s, color 0.15s; text-decoration: none; text-align: center;
 }
 .r-btn:hover { background: rgba(201,168,64,0.1); color: #f5e6c8; }
+.r-btn.watch {
+  background: rgba(201,168,64,0.2); border-color: #d4af37; color: #f5e6c8;
+}
+.r-btn.watch:hover { background: rgba(201,168,64,0.3); }
+
+/* TMDB attribution */
+.tmdb-attr {
+  display: flex; align-items: center; gap: 7px;
+  padding-top: 8px; border-top: 1px solid rgba(201,168,64,0.12);
+  font-size: 9px; color: rgba(245,230,200,0.35); letter-spacing: 1px;
+}
+.tmdb-logo-wrap svg { height: 12px; width: auto; }
+
+/* Error state */
+.error-box { display: none; text-align: center; padding: 20px 14px; }
+.error-box.show { display: block; }
+.error-msg { font-size: 12px; color: rgba(245,230,200,0.55); line-height: 1.6; }
 
 /* Confetti */
-.confetti-piece {
-  position: fixed; width: 8px; height: 12px; border-radius: 2px;
-  pointer-events: none; animation: confettiFall linear forwards; z-index: 100;
-}
-@keyframes confettiFall {
-  0%   { transform: translateY(-20px) rotate(0deg); opacity: 1; }
-  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
-}
+.confetti-piece { position: fixed; border-radius: 2px; pointer-events: none; animation: confettiFall linear forwards; z-index: 100; }
+@keyframes confettiFall { 0% { transform: translateY(-20px) rotate(0deg); opacity: 1; } 100% { transform: translateY(100vh) rotate(720deg); opacity: 0; } }
 
-@media (max-width: 760px) {
-  .layout { flex-direction: column; align-items: center; }
-  .side-col { width: 100%; max-width: 430px; }
-}
+@media (max-width: 760px) { .layout { flex-direction: column; align-items: center; } .side-col { width: 100%; max-width: 430px; } }
 </style>
 </head>
 <body>
@@ -207,11 +212,12 @@ body {
 <div class="title-wrap">
   <span class="crown">♦ ♣ ♦</span>
   <div class="title">Weekend Watch</div>
-  <div class="subtitle">Your Casino Movie Picker</div>
+  <div class="subtitle">Your Casino Movie &amp; Series Picker</div>
   <div class="gold-divider"><span>✦</span></div>
 </div>
 
 <div class="layout">
+
   <!-- Wheel -->
   <div class="wheel-col">
     <div class="pointer-wrap"></div>
@@ -229,341 +235,163 @@ body {
   <!-- Side panel -->
   <div class="side-col">
 
+    <!-- Genre -->
     <div class="box">
       <div class="box-title">Genre</div>
-      <div class="genre-grid" id="genreGrid"></div>
+      <div class="chip-grid" id="genreGrid"></div>
     </div>
 
-    <div class="box">
-      <div class="box-title">Platform</div>
-      <div class="filter-row" id="platformGrid"></div>
-    </div>
-
+    <!-- Type + Region -->
     <div class="box">
       <div class="box-title">Type</div>
-      <div class="filter-row" id="typeGrid"></div>
-      <div style="margin-top:10px;">
-        <div class="box-title" style="margin-bottom:6px;">Country</div>
-        <div class="filter-row" id="countryGrid"></div>
+      <div class="chip-grid" id="typeGrid"></div>
+      <div style="margin-top:12px;">
+        <div class="box-title" style="margin-bottom:8px;">OTT Region</div>
+        <div class="chip-grid" id="regionGrid"></div>
       </div>
     </div>
 
+    <!-- Loading -->
+    <div class="box loading-box" id="loadingBox">
+      <div class="spinner"></div>
+      <div class="loading-genre" id="loadingGenre">Fetching picks…</div>
+    </div>
+
+    <!-- Error -->
+    <div class="box error-box" id="errorBox">
+      <div class="error-msg" id="errorMsg">Couldn't fetch results.<br>Check your connection and try again.</div>
+      <button class="r-btn" style="margin-top:12px;width:100%;" onclick="retryFetch()">↻ Try Again</button>
+    </div>
+
+    <!-- Result -->
     <div class="box result-box" id="resultBox">
-      <div class="r-genre" id="rGenre"></div>
-      <div class="r-title" id="rTitle"></div>
-      <div class="r-meta">
-        <span class="ott" id="rOtt"></span>
-        <span class="type-badge" id="rType"></span>
-        <span class="imdb" id="rImdb"></span>
+      <div class="r-genre" id="rGenre">—</div>
+      <div class="r-content">
+        <img class="r-poster" id="rPoster" src="" alt="" style="display:none;" />
+        <div class="r-poster-ph" id="rPosterPh" style="display:none;">🎬</div>
+        <div class="r-info">
+          <div class="r-title" id="rTitle"></div>
+          <div class="r-badges" id="rBadges"></div>
+          <div class="r-rating" id="rRating"></div>
+          <div class="r-year-lang" id="rYearLang"></div>
+        </div>
       </div>
-      <div class="r-sub" id="rSub"></div>
-      <div class="r-desc" id="rDesc"></div>
+      <div class="r-overview" id="rOverview"></div>
+      <div class="r-providers-label">Streaming in <span id="rRegionLabel">—</span></div>
+      <div class="providers-row" id="providersRow"></div>
       <div class="btn-row">
-        <button class="r-btn" onclick="spin()">↻ Spin Again</button>
-        <button class="r-btn" onclick="nextMovie()">→ Next Pick</button>
-        <a class="r-btn" id="watchBtn" href="#" target="_blank" style="text-decoration:none;text-align:center;">▶ Watch Now</a>
+        <button class="r-btn" onclick="spin()">↻ Spin</button>
+        <button class="r-btn" onclick="fetchAnother()">→ Another</button>
+        <a class="r-btn watch" id="watchBtn" href="#" target="_blank">▶ Watch</a>
       </div>
-    </div>
-
-    <div class="box" style="text-align:center;padding:10px 14px;">
-      <div id="statsBar" class="stats-bar">— titles loaded —</div>
+      <div class="tmdb-attr">
+        <div class="tmdb-logo-wrap">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 489.04 35.4"><defs><linearGradient id="tmdb-grad" y1="17.7" x2="489.04" y2="17.7" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#90cea1"/><stop offset="0.56" stop-color="#3cbec9"/><stop offset="1" stop-color="#00b3e5"/></linearGradient></defs><path fill="url(#tmdb-grad)" d="M293.5,0h8.9l8.75,23.2h.1L320.15,0h8.35L313.9,35.4h-6.25Zm46.6,0h7.8V35.4h-7.8Zm22.2,0h24.05V7.2H370.1v6.6h15.35V21H370.1v7.2h17.15v7.2H362.3Zm55,0H429a33.54,33.54,0,0,1,8.07,1A18.55,18.55,0,0,1,443.75,4a15.1,15.1,0,0,1,4.52,5.53A18.5,18.5,0,0,1,450,17.8a16.91,16.91,0,0,1-1.63,7.58,16.37,16.37,0,0,1-4.37,5.5,19.52,19.52,0,0,1-6.35,3.37A24.59,24.59,0,0,1,430,35.4H417.29Zm7.81,28.2h4a21.57,21.57,0,0,0,5-.55,10.87,10.87,0,0,0,4-1.83,8.69,8.69,0,0,0,2.67-3.34,11.92,11.92,0,0,0,1-5.08,9.87,9.87,0,0,0-1-4.52,9,9,0,0,0-2.62-3.18,11.68,11.68,0,0,0-3.88-1.88,17.43,17.43,0,0,0-4.67-.62h-4.6ZM461.24,0h13.2a34.42,34.42,0,0,1,4.63.32,12.9,12.9,0,0,1,4.17,1.3,7.88,7.88,0,0,1,3,2.73A8.34,8.34,0,0,1,487.39,9a7.42,7.42,0,0,1-1.67,5,9.28,9.28,0,0,1-4.43,2.82v.1a10,10,0,0,1,3.18,1,8.38,8.38,0,0,1,2.45,1.85,7.79,7.79,0,0,1,1.57,2.62,9.16,9.16,0,0,1,.55,3.2,8.52,8.52,0,0,1-1.2,4.68,9.42,9.42,0,0,1-3.1,3,13.38,13.38,0,0,1-4.27,1.65,23.11,23.11,0,0,1-4.73.5h-14.5ZM469,14.15h5.65a8.16,8.16,0,0,0,1.78-.2A4.78,4.78,0,0,0,478,13.3a3.34,3.34,0,0,0,1.13-1.2,3.63,3.63,0,0,0,.42-1.8,3.22,3.22,0,0,0-.47-1.82,3.33,3.33,0,0,0-1.23-1.13,5.77,5.77,0,0,0-1.7-.58,10.79,10.79,0,0,0-1.85-.17H469Zm0,14.65h7a8.91,8.91,0,0,0,1.83-.2,4.78,4.78,0,0,0,1.67-.7,4,4,0,0,0,1.23-1.3,3.71,3.71,0,0,0,.47-2,3.13,3.13,0,0,0-.62-2A4,4,0,0,0,479,21.45,7.83,7.83,0,0,0,477,20.9a15.12,15.12,0,0,0-2.05-.15H469Zm-265,6.53H271a17.66,17.66,0,0,0,17.66-17.66h0A17.67,17.67,0,0,0,271,0H204.06A17.67,17.67,0,0,0,186.4,17.67h0A17.66,17.66,0,0,0,204.06,35.33ZM10.1,6.9H0V0H28V6.9H17.9V35.4H10.1ZM39,0h7.8V13.2H61.9V0h7.8V35.4H61.9V20.1H46.75V35.4H39ZM80.2,0h24V7.2H88v6.6h15.35V21H88v7.2h17.15v7.2h-25Zm55,0H147l8.15,23.1h.1L163.45,0H175.2V35.4h-7.8V8.25h-.1L158,35.4h-5.95l-9-27.15H143V35.4h-7.8Z"/></svg>
+        </div>
+        <span>Data from TMDB</span>
+      </div>
     </div>
 
   </div>
 </div>
 
 <script>
-/* ═══════════════════════════════════════
-   DATA — top entries from CSV, sorted by trending_score
-   Fields: title, ott, type, country, language, year, duration, rating, desc
-   ═══════════════════════════════════════ */
+/* ═══════════════════════════════════
+   CONFIG
+   ═══════════════════════════════════ */
+const API_KEY  = 'de1460ca503ea646c276ecb91d0c4e1e';
+const TMDB     = 'https://api.themoviedb.org/3';
+const IMG_W500 = 'https://image.tmdb.org/t/p/w500';
+const LOGO_W92 = 'https://image.tmdb.org/t/p/w92';
 
-const GENRE_DESC_TEMPLATES = {
-  Action: [
-    (t,c,y) => `A relentless ${c} ${y} production that keeps you locked in from the first frame to the last. Pure adrenaline.`,
-    (t,c,y) => `High-octane and spectacularly staged — this ${y} ${c} title raises the bar for action storytelling.`,
-    (t,c,y) => `From ${c}, ${y}: explosive set pieces, sharp direction, and a pace that never lets up.`,
-    (t,c,y) => `Kinetic, visceral, and utterly gripping. One of ${c}'s standout action titles of ${y}.`,
-    (t,c,y) => `Every scene crackles with tension. This ${y} ${c} action hit is not for the faint-hearted.`,
-    (t,c,y) => `Bold, fast, and ferociously entertaining — a ${y} action standout from ${c}.`,
-  ],
-  Drama: [
-    (t,c,y) => `A quietly devastating ${y} drama from ${c} — layered performances and a script that earns every emotion.`,
-    (t,c,y) => `From ${c}, ${y}: a slow-burn character study that rewards patience with real depth and power.`,
-    (t,c,y) => `Emotionally honest and beautifully crafted. This ${c} drama from ${y} lingers long after it ends.`,
-    (t,c,y) => `${c}, ${y} — a gripping human story told with restraint and exceptional performances throughout.`,
-    (t,c,y) => `Rich, textured, and emotionally complex. One of ${c}'s most acclaimed dramas of ${y}.`,
-    (t,c,y) => `A masterclass in understated storytelling. This ${y} ${c} production is not to be missed.`,
-  ],
-  Comedy: [
-    (t,c,y) => `Sharp, witty, and genuinely funny — a ${y} comedy from ${c} that doesn't rely on cheap laughs.`,
-    (t,c,y) => `From ${c}, ${y}: laugh-out-loud moments woven with surprising warmth and real heart.`,
-    (t,c,y) => `A crowd-pleasing ${y} ${c} comedy with great comic timing and a cast who clearly enjoy every moment.`,
-    (t,c,y) => `Clever writing and perfect comic rhythm make this ${y} ${c} title one of the year's funniest.`,
-    (t,c,y) => `Irreverent, charming, and brilliantly timed — a standout ${c} comedy from ${y}.`,
-    (t,c,y) => `From ${c}, ${y}: the kind of comedy that sneaks up on you and lands harder than expected.`,
-  ],
-  Thriller: [
-    (t,c,y) => `A taut, nerve-shredding ${y} thriller from ${c}. You won't see the twists coming until it's too late.`,
-    (t,c,y) => `From ${c}, ${y}: slow dread that builds to a staggering payoff. Sleep optional.`,
-    (t,c,y) => `Every scene is a trap. This ${c} thriller from ${y} is masterfully constructed and genuinely unsettling.`,
-    (t,c,y) => `Edge-of-seat tension from start to finish — a ${y} ${c} thriller that plays its cards perfectly.`,
-    (t,c,y) => `${c}'s ${y} entry in the thriller genre: ice-cold direction, hot-wire suspense.`,
-    (t,c,y) => `Paranoid, twisty, and relentlessly gripping. One of ${c}'s best thrillers in years (${y}).`,
-  ],
-  'Sci-Fi': [
-    (t,c,y) => `A thought-provoking ${y} sci-fi from ${c} that asks big questions and isn't afraid to sit with the answers.`,
-    (t,c,y) => `From ${c}, ${y}: visually ambitious and intellectually daring — sci-fi that earns its ideas.`,
-    (t,c,y) => `Bold world-building and a premise that sticks with you. This ${y} ${c} sci-fi is the real deal.`,
-    (t,c,y) => `${c}'s ${y} sci-fi offering: spectacular production values wrapped around a genuinely compelling story.`,
-    (t,c,y) => `Part spectacle, part meditation on the human condition — a ${y} ${c} sci-fi that fires on all cylinders.`,
-    (t,c,y) => `Cerebral, beautiful, and occasionally breathtaking. One of ${c}'s strongest sci-fi titles of ${y}.`,
-  ],
-  Fantasy: [
-    (t,c,y) => `Lush, immersive, and utterly transportive — a ${y} fantasy from ${c} with world-building to spare.`,
-    (t,c,y) => `From ${c}, ${y}: an epic of imagination — sweeping scope, rich mythology, and genuine wonder.`,
-    (t,c,y) => `This ${c} fantasy from ${y} is the kind of story that reminds you why the genre exists.`,
-    (t,c,y) => `Visually extraordinary and emotionally generous — a ${y} ${c} fantasy that delivers on every level.`,
-    (t,c,y) => `${c}'s ${y} fantasy: vivid, inventive, and quietly spectacular. Perfect weekend fare.`,
-    (t,c,y) => `Magic, stakes, and a story worth getting lost in. This ${y} ${c} fantasy is unmissable.`,
-  ],
-  Crime: [
-    (t,c,y) => `Gritty, atmospheric, and morally complex — a ${y} crime title from ${c} that pulls no punches.`,
-    (t,c,y) => `From ${c}, ${y}: a crime story with real teeth — sharp dialogue, layered characters, high stakes.`,
-    (t,c,y) => `Dark, stylish, and hard to shake. This ${c} crime production from ${y} is among the genre's best.`,
-    (t,c,y) => `${c}'s ${y} crime offering: every frame feels lived-in, every character feels real.`,
-    (t,c,y) => `Tension-soaked and morally murky in all the right ways — a ${y} ${c} crime drama of real quality.`,
-    (t,c,y) => `From ${c}, ${y}: the kind of crime story where nobody is fully innocent. Compelling and uncompromising.`,
-  ],
-};
-
-// Top entries from CSV (trending_score-ranked), 15-18 per genre
-const RAW = {
-  Action: [
-    {title:"Crimson Truth 452",ott:"Netflix",type:"Movie",country:"Germany",lang:"German",year:2020,dur:104,rating:8.8,votes:199426},
-    {title:"Hidden Pulse 220",ott:"Hotstar",type:"Series",country:"Spain",lang:"English",year:2021,dur:1609,rating:9.2,votes:174751},
-    {title:"Cyber Night 2125",ott:"Hotstar",type:"Series",country:"UK",lang:"Korean",year:2023,dur:927,rating:9.1,votes:171795},
-    {title:"Cyber Night 1713",ott:"Prime Video",type:"Series",country:"Spain",lang:"Spanish",year:2017,dur:481,rating:9.4,votes:165347},
-    {title:"Hidden Pulse 1258",ott:"Netflix",type:"Series",country:"India",lang:"German",year:2024,dur:1765,rating:8.6,votes:181815},
-    {title:"Cyber Night 1120",ott:"Prime Video",type:"Movie",country:"South Korea",lang:"English",year:2022,dur:141,rating:8.0,votes:196635},
-    {title:"Neon Streets 2254",ott:"Hotstar",type:"Series",country:"India",lang:"Korean",year:2018,dur:629,rating:7.8,votes:199558},
-    {title:"Hidden Pulse 1017",ott:"Prime Video",type:"Movie",country:"India",lang:"Korean",year:2016,dur:92,rating:7.8,votes:185273},
-    {title:"Echoes of Time 584",ott:"Prime Video",type:"Movie",country:"India",lang:"Korean",year:2021,dur:160,rating:7.8,votes:6759},
-    {title:"Last Kingdom 374",ott:"Prime Video",type:"Series",country:"Germany",lang:"Korean",year:2020,dur:1415,rating:7.0,votes:7523},
-    {title:"Neon Streets 1937",ott:"Netflix",type:"Series",country:"Germany",lang:"English",year:2017,dur:1203,rating:5.6,votes:5399},
-    {title:"Dark Horizon 135",ott:"Prime Video",type:"Movie",country:"India",lang:"English",year:2020,dur:138,rating:8.5,votes:190170},
-    {title:"Echoes of Time 1849",ott:"Prime Video",type:"Series",country:"Spain",lang:"English",year:2024,dur:1580,rating:6.3,votes:7053},
-    {title:"Broken Empire 863",ott:"Hotstar",type:"Series",country:"Germany",lang:"German",year:2020,dur:482,rating:8.6,votes:181000},
-    {title:"Shadow Realm 330",ott:"Netflix",type:"Movie",country:"USA",lang:"English",year:2022,dur:118,rating:8.4,votes:177000},
-  ],
-  Drama: [
-    {title:"Silent Code 146",ott:"Netflix",type:"Series",country:"UK",lang:"English",year:2024,dur:819,rating:9.5,votes:198380},
-    {title:"Silent Code 591",ott:"Hotstar",type:"Movie",country:"Germany",lang:"Hindi",year:2016,dur:99,rating:8.5,votes:196936},
-    {title:"Echoes of Time 1953",ott:"Netflix",type:"Movie",country:"USA",lang:"Korean",year:2017,dur:172,rating:8.7,votes:193791},
-    {title:"Lost Signal 100",ott:"Prime Video",type:"Series",country:"South Korea",lang:"English",year:2022,dur:1987,rating:8.7,votes:190350},
-    {title:"Crimson Truth 2202",ott:"Netflix",type:"Movie",country:"USA",lang:"Hindi",year:2016,dur:80,rating:9.3,votes:166767},
-    {title:"Fading Light 937",ott:"Hotstar",type:"Series",country:"Spain",lang:"Hindi",year:2018,dur:1887,rating:8.0,votes:190200},
-    {title:"Cyber Night 1989",ott:"Prime Video",type:"Movie",country:"Germany",lang:"Spanish",year:2015,dur:153,rating:8.1,votes:184511},
-    {title:"Manchester Code",ott:"Netflix",type:"Movie",country:"UK",lang:"English",year:2021,dur:112,rating:8.6,votes:178000},
-    {title:"Neon Streets 2133",ott:"Netflix",type:"Movie",country:"UK",lang:"English",year:2024,dur:170,rating:7.3,votes:7171},
-    {title:"Dark Horizon 2087",ott:"Prime Video",type:"Movie",country:"India",lang:"Spanish",year:2019,dur:127,rating:8.6,votes:4479},
-    {title:"Echoes of Time 897",ott:"Prime Video",type:"Movie",country:"Germany",lang:"English",year:2021,dur:122,rating:7.8,votes:5861},
-    {title:"Neon Streets 52",ott:"Prime Video",type:"Series",country:"Spain",lang:"Spanish",year:2018,dur:1741,rating:9.2,votes:3946},
-    {title:"Cyber Night 162",ott:"Hotstar",type:"Series",country:"South Korea",lang:"Spanish",year:2021,dur:604,rating:7.8,votes:7125},
-    {title:"Fading Light 1285",ott:"Hotstar",type:"Series",country:"USA",lang:"Spanish",year:2020,dur:729,rating:6.1,votes:9374},
-    {title:"Lost Signal 2314",ott:"Hotstar",type:"Series",country:"India",lang:"Hindi",year:2023,dur:840,rating:8.9,votes:160000},
-  ],
-  Comedy: [
-    {title:"Fading Light 1149",ott:"Hotstar",type:"Series",country:"UK",lang:"Spanish",year:2016,dur:1212,rating:8.5,votes:190318},
-    {title:"Echoes of Time 1101",ott:"Prime Video",type:"Movie",country:"USA",lang:"English",year:2019,dur:127,rating:8.3,votes:192507},
-    {title:"Lost Signal 274",ott:"Netflix",type:"Movie",country:"India",lang:"German",year:2015,dur:159,rating:9.2,votes:192054},
-    {title:"Crimson Truth 1914",ott:"Prime Video",type:"Series",country:"South Korea",lang:"English",year:2021,dur:1626,rating:8.4,votes:194213},
-    {title:"Last Kingdom 2251",ott:"Netflix",type:"Movie",country:"Spain",lang:"Hindi",year:2018,dur:95,rating:8.3,votes:196969},
-    {title:"Echoes of Time 1444",ott:"Prime Video",type:"Series",country:"India",lang:"Spanish",year:2018,dur:460,rating:8.3,votes:188793},
-    {title:"Broken Empire 1115",ott:"Prime Video",type:"Series",country:"Spain",lang:"Korean",year:2018,dur:667,rating:9.0,votes:157720},
-    {title:"Lost Signal 1198",ott:"Netflix",type:"Series",country:"Spain",lang:"Korean",year:2023,dur:816,rating:7.6,votes:198873},
-    {title:"Fading Light 410",ott:"Prime Video",type:"Series",country:"Germany",lang:"German",year:2019,dur:1352,rating:8.7,votes:182242},
-    {title:"Shadow Realm 18",ott:"Prime Video",type:"Series",country:"USA",lang:"Spanish",year:2023,dur:814,rating:8.0,votes:183018},
-    {title:"Last Kingdom 2486",ott:"Netflix",type:"Movie",country:"Germany",lang:"German",year:2020,dur:94,rating:7.7,votes:7115},
-    {title:"Broken Empire 2054",ott:"Netflix",type:"Movie",country:"USA",lang:"Korean",year:2020,dur:138,rating:9.4,votes:6699},
-    {title:"Shadow Realm 572",ott:"Netflix",type:"Movie",country:"USA",lang:"German",year:2015,dur:100,rating:6.7,votes:5572},
-    {title:"Fading Light 434",ott:"Hotstar",type:"Series",country:"UK",lang:"Spanish",year:2024,dur:1000,rating:7.8,votes:5561},
-    {title:"Hidden Pulse 1957",ott:"Prime Video",type:"Movie",country:"Spain",lang:"English",year:2015,dur:117,rating:8.5,votes:5195},
-  ],
-  Thriller: [
-    {title:"Cyber Night 1169",ott:"Prime Video",type:"Series",country:"Germany",lang:"German",year:2022,dur:1616,rating:8.2,votes:198549},
-    {title:"Last Kingdom 2406",ott:"Netflix",type:"Series",country:"India",lang:"Korean",year:2016,dur:1366,rating:9.2,votes:187179},
-    {title:"Fading Light 2009",ott:"Prime Video",type:"Series",country:"UK",lang:"German",year:2016,dur:449,rating:8.7,votes:197508},
-    {title:"Broken Empire 863",ott:"Prime Video",type:"Series",country:"India",lang:"German",year:2020,dur:1771,rating:7.8,votes:188438},
-    {title:"Crimson Truth 893",ott:"Netflix",type:"Series",country:"Spain",lang:"German",year:2022,dur:1175,rating:9.1,votes:154341},
-    {title:"Lost Signal 763",ott:"Hotstar",type:"Series",country:"South Korea",lang:"German",year:2023,dur:1568,rating:7.8,votes:193242},
-    {title:"Lost Signal 1013",ott:"Hotstar",type:"Series",country:"India",lang:"Spanish",year:2018,dur:1027,rating:8.7,votes:160822},
-    {title:"Dark Horizon 846",ott:"Prime Video",type:"Series",country:"India",lang:"German",year:2022,dur:1819,rating:7.4,votes:6134},
-    {title:"Neon Streets 1530",ott:"Netflix",type:"Movie",country:"USA",lang:"Korean",year:2021,dur:124,rating:7.2,votes:7239},
-    {title:"Crimson Truth 2452",ott:"Prime Video",type:"Movie",country:"USA",lang:"German",year:2019,dur:93,rating:6.3,votes:5372},
-    {title:"Dark Horizon 1146",ott:"Prime Video",type:"Series",country:"UK",lang:"Spanish",year:2019,dur:1886,rating:5.4,votes:7353},
-    {title:"Fading Light 119",ott:"Prime Video",type:"Movie",country:"India",lang:"Hindi",year:2015,dur:84,rating:7.7,votes:8064},
-    {title:"Echoes of Time 1944",ott:"Hotstar",type:"Series",country:"South Korea",lang:"Spanish",year:2023,dur:1470,rating:7.9,votes:6906},
-    {title:"Broken Empire 1919",ott:"Prime Video",type:"Movie",country:"India",lang:"English",year:2022,dur:85,rating:6.6,votes:7558},
-    {title:"Dark Horizon 425",ott:"Netflix",type:"Movie",country:"Germany",lang:"German",year:2019,dur:108,rating:8.5,votes:185000},
-  ],
-  'Sci-Fi': [
-    {title:"Silent Code 271",ott:"Netflix",type:"Movie",country:"India",lang:"Spanish",year:2022,dur:117,rating:8.7,votes:194802},
-    {title:"Dark Horizon 910",ott:"Prime Video",type:"Movie",country:"Germany",lang:"German",year:2017,dur:124,rating:9.4,votes:178121},
-    {title:"Hidden Pulse 1060",ott:"Netflix",type:"Series",country:"USA",lang:"Korean",year:2023,dur:1063,rating:9.5,votes:177301},
-    {title:"Lost Signal 2127",ott:"Prime Video",type:"Series",country:"Spain",lang:"English",year:2016,dur:749,rating:9.3,votes:168899},
-    {title:"Fading Light 1025",ott:"Hotstar",type:"Series",country:"South Korea",lang:"German",year:2020,dur:361,rating:8.3,votes:183716},
-    {title:"Hidden Pulse 404",ott:"Prime Video",type:"Series",country:"Spain",lang:"Spanish",year:2016,dur:342,rating:7.7,votes:198863},
-    {title:"Last Kingdom 131",ott:"Prime Video",type:"Series",country:"India",lang:"Hindi",year:2024,dur:1639,rating:8.1,votes:182957},
-    {title:"Cyber Night 213",ott:"Netflix",type:"Movie",country:"Germany",lang:"Korean",year:2016,dur:161,rating:8.2,votes:185867},
-    {title:"Last Kingdom 244",ott:"Hotstar",type:"Series",country:"Germany",lang:"Korean",year:2023,dur:1410,rating:8.2,votes:195022},
-    {title:"Crimson Truth 748",ott:"Prime Video",type:"Movie",country:"Spain",lang:"Hindi",year:2024,dur:118,rating:8.8,votes:166699},
-    {title:"Cyber Night 2001",ott:"Netflix",type:"Series",country:"USA",lang:"Spanish",year:2024,dur:1405,rating:7.8,votes:199330},
-    {title:"Dark Horizon 753",ott:"Hotstar",type:"Movie",country:"South Korea",lang:"Spanish",year:2015,dur:154,rating:6.6,votes:6880},
-    {title:"Last Kingdom 1935",ott:"Netflix",type:"Series",country:"UK",lang:"Hindi",year:2024,dur:1627,rating:7.3,votes:6701},
-    {title:"Last Kingdom 1902",ott:"Netflix",type:"Series",country:"Spain",lang:"Korean",year:2022,dur:1836,rating:6.9,votes:7912},
-    {title:"Cyber Night 1884",ott:"Prime Video",type:"Movie",country:"South Korea",lang:"Hindi",year:2021,dur:113,rating:6.9,votes:6679},
-  ],
-  Fantasy: [
-    {title:"Silent Code 2394",ott:"Hotstar",type:"Series",country:"UK",lang:"Hindi",year:2021,dur:774,rating:9.5,votes:173705},
-    {title:"Echoes of Time 994",ott:"Prime Video",type:"Series",country:"Spain",lang:"German",year:2019,dur:1158,rating:8.4,votes:197019},
-    {title:"Last Kingdom 649",ott:"Hotstar",type:"Movie",country:"India",lang:"German",year:2019,dur:135,rating:9.0,votes:174910},
-    {title:"Shadow Realm 599",ott:"Prime Video",type:"Movie",country:"Germany",lang:"Hindi",year:2015,dur:101,rating:9.4,votes:173011},
-    {title:"Echoes of Time 1927",ott:"Prime Video",type:"Movie",country:"Germany",lang:"English",year:2017,dur:172,rating:8.3,votes:189330},
-    {title:"Shadow Realm 746",ott:"Prime Video",type:"Series",country:"Spain",lang:"English",year:2022,dur:1669,rating:8.4,votes:191729},
-    {title:"Crimson Truth 815",ott:"Netflix",type:"Series",country:"USA",lang:"Korean",year:2019,dur:616,rating:8.1,votes:183952},
-    {title:"Crimson Truth 1451",ott:"Netflix",type:"Movie",country:"South Korea",lang:"Korean",year:2024,dur:102,rating:8.9,votes:164959},
-    {title:"Neon Streets 1066",ott:"Hotstar",type:"Movie",country:"South Korea",lang:"English",year:2018,dur:173,rating:7.7,votes:196366},
-    {title:"Fading Light 1217",ott:"Hotstar",type:"Movie",country:"USA",lang:"German",year:2015,dur:157,rating:7.7,votes:189880},
-    {title:"Silent Code 103",ott:"Netflix",type:"Series",country:"Germany",lang:"Hindi",year:2018,dur:917,rating:8.2,votes:8768},
-    {title:"Dark Horizon 436",ott:"Netflix",type:"Series",country:"South Korea",lang:"English",year:2021,dur:510,rating:7.2,votes:8477},
-    {title:"Fading Light 33",ott:"Hotstar",type:"Movie",country:"USA",lang:"Hindi",year:2023,dur:104,rating:8.4,votes:5572},
-    {title:"Silent Code 2497",ott:"Netflix",type:"Series",country:"Spain",lang:"Korean",year:2019,dur:702,rating:8.9,votes:5367},
-    {title:"Lost Signal 90",ott:"Netflix",type:"Series",country:"Spain",lang:"German",year:2021,dur:1389,rating:8.9,votes:5687},
-  ],
-  Crime: [
-    {title:"Neon Streets 2390",ott:"Prime Video",type:"Series",country:"Spain",lang:"English",year:2017,dur:1554,rating:8.9,votes:186313},
-    {title:"Lost Signal 1733",ott:"Prime Video",type:"Series",country:"India",lang:"Hindi",year:2022,dur:866,rating:8.6,votes:179332},
-    {title:"Silent Code 735",ott:"Netflix",type:"Movie",country:"India",lang:"Korean",year:2024,dur:176,rating:7.6,votes:197699},
-    {title:"Cyber Night 808",ott:"Hotstar",type:"Series",country:"India",lang:"Korean",year:2021,dur:319,rating:7.8,votes:199004},
-    {title:"Shadow Realm 2031",ott:"Prime Video",type:"Series",country:"UK",lang:"German",year:2020,dur:1620,rating:8.1,votes:186867},
-    {title:"Neon Streets 2254",ott:"Hotstar",type:"Series",country:"India",lang:"Korean",year:2018,dur:629,rating:7.8,votes:199558},
-    {title:"Fading Light 643",ott:"Netflix",type:"Series",country:"USA",lang:"English",year:2022,dur:470,rating:7.7,votes:9371},
-    {title:"Neon Streets 754",ott:"Hotstar",type:"Movie",country:"South Korea",lang:"Spanish",year:2017,dur:138,rating:7.1,votes:8514},
-    {title:"Last Kingdom 733",ott:"Hotstar",type:"Series",country:"India",lang:"Spanish",year:2018,dur:1701,rating:6.8,votes:7798},
-    {title:"Crimson Truth 1045",ott:"Netflix",type:"Series",country:"Spain",lang:"Spanish",year:2015,dur:1836,rating:6.4,votes:8939},
-    {title:"Echoes of Time 71",ott:"Prime Video",type:"Movie",country:"USA",lang:"Hindi",year:2017,dur:177,rating:7.1,votes:5640},
-    {title:"Neon Streets 942",ott:"Prime Video",type:"Series",country:"Germany",lang:"English",year:2023,dur:944,rating:7.2,votes:4935},
-    {title:"Neon Streets 2281",ott:"Prime Video",type:"Series",country:"India",lang:"Hindi",year:2016,dur:812,rating:8.6,votes:5510},
-    {title:"Lost Signal 69",ott:"Netflix",type:"Movie",country:"Germany",lang:"Spanish",year:2017,dur:89,rating:9.3,votes:7579},
-    {title:"Last Kingdom 2278",ott:"Hotstar",type:"Series",country:"Spain",lang:"Spanish",year:2020,dur:540,rating:6.6,votes:8790},
-  ],
-};
-
-// Enrich with descriptions
-const MOVIES = {};
-Object.entries(RAW).forEach(([genre, arr]) => {
-  const templates = GENRE_DESC_TEMPLATES[genre];
-  MOVIES[genre] = arr.map((m, i) => ({
-    ...m,
-    desc: templates[i % templates.length](m.title, m.country, m.year),
-  }));
-});
-
-// Build SURPRISE from all genres
-MOVIES.SURPRISE = Object.entries(MOVIES)
-  .flatMap(([g, ms]) => ms.map(m => ({ ...m, _genre: g })));
-
-/* ─── Wheel segments ─── */
-const SEGMENTS = [
-  { name: 'ACTION',  color: '#b22222' },
-  { name: 'DRAMA',   color: '#111111' },
-  { name: 'COMEDY',  color: '#b22222' },
-  { name: 'CRIME',   color: '#111111' },
-  { name: 'THRILLER',color: '#b22222' },
-  { name: 'SCI-FI',  color: '#111111' },
-  { name: 'FANTASY', color: '#b22222' },
-  { name: 'SURPRISE',color: '#1b5e20' },
+// CORS proxy — routes around file:// origin blocks
+// Falls back through two proxy options then tries direct
+const PROXIES = [
+  u => `https://corsproxy.io/?${encodeURIComponent(u)}`,
+  u => `https://api.allorigins.win/get?url=${encodeURIComponent(u)}`,
+  u => u,
 ];
 
-const OTT_COLORS = {
-  'Netflix':    '#e50914',
-  'Prime Video':'#00a8e0',
-  'Hotstar':    '#1b74e8',
+// TMDB genre IDs  { movie, tv }
+const GENRE_IDS = {
+  'ACTION':   { movie: 28,  tv: 10759 },
+  'DRAMA':    { movie: 18,  tv: 18    },
+  'COMEDY':   { movie: 35,  tv: 35    },
+  'CRIME':    { movie: 80,  tv: 80    },
+  'THRILLER': { movie: 53,  tv: 9648  },
+  'SCI-FI':   { movie: 878, tv: 10765 },
+  'FANTASY':  { movie: 14,  tv: 10765 },
 };
 
-const OTT_LINKS = {
-  'Netflix':    'https://www.netflix.com/search?q=',
-  'Prime Video':'https://www.amazon.com/s?k=',
-  'Hotstar':    'https://www.hotstar.com/search?q=',
+const GENRE_KEYS = Object.keys(GENRE_IDS);
+
+const REGIONS = {
+  'India':'IN','USA':'US','UK':'GB',
+  'Germany':'DE','Australia':'AU','Japan':'JP','Canada':'CA',
 };
 
-/* ─── Filter state ─── */
-let selectedGenre   = 'RANDOM';
-let selectedPlatform = 'ALL';
-let selectedType     = 'ALL';
-let selectedCountry  = 'ALL';
+/* ── State ── */
+let selGenre  = 'RANDOM';
+let selType   = 'BOTH';    // MOVIE | TV | BOTH
+let selRegion = 'IN';
+let lastFetchGenre = '';
+let lastFetchType  = '';
+let retryCount = 0;
 
-const PLATFORMS = ['ALL','Netflix','Prime Video','Hotstar'];
-const TYPES     = ['ALL','Movie','Series'];
-const COUNTRIES = ['ALL','India','USA','UK','Germany','Spain','South Korea'];
-
-function makeFilterBtns(containerId, values, current, setter) {
-  const el = document.getElementById(containerId);
-  values.forEach(v => {
-    const btn = document.createElement('button');
-    btn.className = 'filter-btn' + (v === current ? ' sel' : '');
-    btn.textContent = v === 'ALL' ? 'Any' : v;
-    btn.onclick = () => {
-      el.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('sel'));
-      btn.classList.add('sel');
-      setter(v);
-      updateStats();
-    };
-    el.appendChild(btn);
-  });
-}
-
-makeFilterBtns('platformGrid', PLATFORMS, selectedPlatform, v => selectedPlatform = v);
-makeFilterBtns('typeGrid',     TYPES,     selectedType,     v => selectedType     = v);
-makeFilterBtns('countryGrid',  COUNTRIES, selectedCountry,  v => selectedCountry  = v);
-
-// Genre buttons
-const GENRE_LIST = ['RANDOM', ...SEGMENTS.map(s => s.name)];
-GENRE_LIST.forEach(g => {
+/* ── Genre buttons ── */
+const genreList = ['RANDOM', ...GENRE_KEYS];
+genreList.forEach(g => {
   const btn = document.createElement('button');
-  btn.className = 'genre-btn' + (g === 'RANDOM' ? ' sel' : '');
+  btn.className = 'chip-btn' + (g === 'RANDOM' ? ' sel' : '');
   btn.textContent = g;
   btn.onclick = () => {
-    document.querySelectorAll('.genre-btn').forEach(b => b.classList.remove('sel'));
+    document.querySelectorAll('#genreGrid .chip-btn').forEach(b => b.classList.remove('sel'));
     btn.classList.add('sel');
-    selectedGenre = g;
-    updateStats();
+    selGenre = g;
   };
   document.getElementById('genreGrid').appendChild(btn);
 });
 
-function getPool(genreKey) {
-  const movies = MOVIES[genreKey] || [];
-  return movies.filter(m => {
-    if (selectedPlatform !== 'ALL' && m.ott !== selectedPlatform) return false;
-    if (selectedType     !== 'ALL' && m.type !== selectedType)     return false;
-    if (selectedCountry  !== 'ALL' && m.country !== selectedCountry) return false;
-    return true;
-  });
-}
+/* ── Type buttons ── */
+[['BOTH','Both'],['MOVIE','Movie'],['TV','TV Show']].forEach(([val, label]) => {
+  const btn = document.createElement('button');
+  btn.className = 'chip-btn' + (val === 'BOTH' ? ' sel' : '');
+  btn.textContent = label;
+  btn.onclick = () => {
+    document.querySelectorAll('#typeGrid .chip-btn').forEach(b => b.classList.remove('sel'));
+    btn.classList.add('sel');
+    selType = val;
+  };
+  document.getElementById('typeGrid').appendChild(btn);
+});
 
-function updateStats() {
-  const genreKey = selectedGenre === 'RANDOM' ? 'SURPRISE' : selectedGenre;
-  const count = getPool(genreKey).length;
-  const total = Object.values(MOVIES).reduce((a,b) => a + b.length, 0) - MOVIES.SURPRISE.length;
-  document.getElementById('statsBar').textContent =
-    `${count} title${count !== 1 ? 's' : ''} match · ${total} total in library`;
-}
+/* ── Region buttons ── */
+Object.entries(REGIONS).forEach(([name, code]) => {
+  const btn = document.createElement('button');
+  btn.className = 'chip-btn' + (code === 'IN' ? ' sel' : '');
+  btn.textContent = name;
+  btn.onclick = () => {
+    document.querySelectorAll('#regionGrid .chip-btn').forEach(b => b.classList.remove('sel'));
+    btn.classList.add('sel');
+    selRegion = code;
+  };
+  document.getElementById('regionGrid').appendChild(btn);
+});
 
-updateStats();
+/* ═══════════════════════════════════
+   WHEEL CANVAS
+   ═══════════════════════════════════ */
+const SEGMENTS = [
+  { name: 'ACTION',   color: '#b22222' },
+  { name: 'DRAMA',    color: '#111111' },
+  { name: 'COMEDY',   color: '#b22222' },
+  { name: 'CRIME',    color: '#111111' },
+  { name: 'THRILLER', color: '#b22222' },
+  { name: 'SCI-FI',   color: '#111111' },
+  { name: 'FANTASY',  color: '#b22222' },
+  { name: 'SURPRISE', color: '#1b5e20' },
+];
 
-/* ─── Canvas ─── */
 const canvas = document.getElementById('wc');
 const ctx    = canvas.getContext('2d');
 const CX = 215, CY = 215, R = 200;
@@ -587,21 +415,19 @@ let ballAngle  = -Math.PI / 2;
 let ballRad    = rTrack;
 let spinning   = false;
 let resultSeg  = -1;
-let startWA, endWA, startBA, endBA, startTime;
+let targetSeg  = 0;
+
+let startWA, endWA, startBA, endBA, animStart;
 const DUR = 5800;
-let targetSeg = 0;
-let currentMovieIdx = 0;
-let lastGenreKey    = '';
 
 function easeOutQuart(t) { return 1 - Math.pow(1 - t, 4); }
 
 function drawWheel() {
   ctx.clearRect(0, 0, 430, 430);
 
-  // Shadow
+  // Outer shadow
   ctx.save();
-  ctx.shadowColor = 'rgba(0,0,0,0.7)';
-  ctx.shadowBlur  = 28;
+  ctx.shadowColor = 'rgba(0,0,0,0.7)'; ctx.shadowBlur = 28;
   ctx.beginPath(); ctx.arc(CX, CY, rOuter, 0, Math.PI*2);
   ctx.fillStyle = '#1e0a01'; ctx.fill();
   ctx.restore();
@@ -618,11 +444,11 @@ function drawWheel() {
   ctx.beginPath(); ctx.arc(CX, CY, rTrack+5, 0, Math.PI*2);
   ctx.strokeStyle = 'rgba(180,130,30,0.25)'; ctx.lineWidth = 18; ctx.stroke();
 
-  // Segment ring outer edge
+  // Segment ring outer edge marker
   ctx.beginPath(); ctx.arc(CX, CY, rSegOut+2, 0, Math.PI*2);
   ctx.strokeStyle = '#a07820'; ctx.lineWidth = 2; ctx.stroke();
 
-  /* Rotating part */
+  /* ── Rotating segments ── */
   ctx.save();
   ctx.translate(CX, CY);
   ctx.rotate(wheelAngle);
@@ -633,7 +459,6 @@ function drawWheel() {
     const mid = a0 + SEG_ANG / 2;
     const hi  = resultSeg === i && !spinning;
 
-    // Fill
     ctx.beginPath();
     ctx.arc(0, 0, rSegOut, a0, a1);
     ctx.arc(0, 0, rSegIn,  a1, a0, true);
@@ -641,7 +466,7 @@ function drawWheel() {
     ctx.fillStyle = hi ? '#d4af37' : SEGMENTS[i].color;
     ctx.fill();
 
-    // Fret divider
+    // Gold fret divider
     ctx.beginPath();
     ctx.moveTo(rSegIn  * Math.cos(a0), rSegIn  * Math.sin(a0));
     ctx.lineTo(rSegOut * Math.cos(a0), rSegOut * Math.sin(a0));
@@ -653,7 +478,7 @@ function drawWheel() {
     ctx.arc(Math.cos(a0)*dotR, Math.sin(a0)*dotR, 3, 0, Math.PI*2);
     ctx.fillStyle = '#c9a840'; ctx.fill();
 
-    // Label
+    // Segment label
     const textR = (rSegOut + rSegIn) / 2 + 2;
     ctx.save();
     ctx.translate(Math.cos(mid)*textR, Math.sin(mid)*textR);
@@ -666,7 +491,6 @@ function drawWheel() {
     ctx.restore();
   }
 
-  // Ring borders
   ctx.beginPath(); ctx.arc(0,0,rSegOut,0,Math.PI*2);
   ctx.strokeStyle='#c9a840'; ctx.lineWidth=1.5; ctx.stroke();
   ctx.beginPath(); ctx.arc(0,0,rSegIn,0,Math.PI*2);
@@ -674,82 +498,79 @@ function drawWheel() {
   ctx.restore();
 
   // Inner rotor
-  ctx.beginPath(); ctx.arc(CX,CY,rRotor,0,Math.PI*2);
-  ctx.fillStyle='#1c0c02'; ctx.fill();
-  ctx.beginPath(); ctx.arc(CX,CY,rRotor,0,Math.PI*2);
-  ctx.strokeStyle='#c9a840'; ctx.lineWidth=2; ctx.stroke();
+  ctx.beginPath(); ctx.arc(CX,CY,rRotor,0,Math.PI*2); ctx.fillStyle='#1c0c02'; ctx.fill();
+  ctx.beginPath(); ctx.arc(CX,CY,rRotor,0,Math.PI*2); ctx.strokeStyle='#c9a840'; ctx.lineWidth=2; ctx.stroke();
 
-  // Diamonds
+  // Rotor diamonds
   ctx.save();
-  ctx.translate(CX,CY);
-  ctx.rotate(wheelAngle*0.4);
-  for (let i=0;i<8;i++){
-    const a = (i/8)*Math.PI*2;
-    const dr = rRotor*0.68;
+  ctx.translate(CX, CY);
+  ctx.rotate(wheelAngle * 0.4);
+  for (let i = 0; i < 8; i++) {
+    const a  = (i/8) * Math.PI * 2;
+    const dr = rRotor * 0.68;
     ctx.save();
     ctx.translate(Math.cos(a)*dr, Math.sin(a)*dr);
     ctx.rotate(a);
     ctx.beginPath();
     ctx.moveTo(0,-6); ctx.lineTo(4,0); ctx.lineTo(0,6); ctx.lineTo(-4,0);
     ctx.closePath();
-    ctx.fillStyle='#c9a840'; ctx.fill();
+    ctx.fillStyle = '#c9a840'; ctx.fill();
     ctx.restore();
   }
   ctx.restore();
 
-  // Hub
+  // Hub layers
   ctx.beginPath(); ctx.arc(CX,CY,rHub1,0,Math.PI*2); ctx.fillStyle='#c9a840'; ctx.fill();
   ctx.beginPath(); ctx.arc(CX,CY,rHub2,0,Math.PI*2); ctx.fillStyle='#7a5c0a'; ctx.fill();
   ctx.beginPath(); ctx.arc(CX,CY,rHub3,0,Math.PI*2); ctx.fillStyle='#d4af37'; ctx.fill();
   ctx.beginPath(); ctx.arc(CX,CY,rHub4,0,Math.PI*2); ctx.fillStyle='#1c0c02'; ctx.fill();
 
   // Ball
-  const bx = CX + Math.cos(ballAngle)*ballRad;
-  const by = CY + Math.sin(ballAngle)*ballRad;
-  ctx.beginPath(); ctx.arc(bx+1,by+2,7,0,Math.PI*2);
-  ctx.fillStyle='rgba(0,0,0,0.3)'; ctx.fill();
-  ctx.beginPath(); ctx.arc(bx,by,7,0,Math.PI*2);
-  ctx.fillStyle='#f2f0ec'; ctx.fill();
+  const bx = CX + Math.cos(ballAngle) * ballRad;
+  const by = CY + Math.sin(ballAngle) * ballRad;
+  ctx.beginPath(); ctx.arc(bx+1,by+2,7,0,Math.PI*2); ctx.fillStyle='rgba(0,0,0,0.3)'; ctx.fill();
+  ctx.beginPath(); ctx.arc(bx,by,7,0,Math.PI*2); ctx.fillStyle='#f2f0ec'; ctx.fill();
   ctx.strokeStyle='#aaa'; ctx.lineWidth=0.8; ctx.stroke();
-  ctx.beginPath(); ctx.arc(bx-2.5,by-2.5,3,0,Math.PI*2);
-  ctx.fillStyle='rgba(255,255,255,0.7)'; ctx.fill();
+  ctx.beginPath(); ctx.arc(bx-2.5,by-2.5,3,0,Math.PI*2); ctx.fillStyle='rgba(255,255,255,0.7)'; ctx.fill();
 }
 
-/* ─── Spin ─── */
+/* ═══════════════════════════════════
+   SPIN
+   ═══════════════════════════════════ */
 function spin() {
   if (spinning) return;
-  document.getElementById('resultBox').classList.remove('show');
-  resultSeg = -1; spinning = true;
+  hideAll();
+  resultSeg = -1;
+  spinning  = true;
   document.getElementById('spinBtn').disabled = true;
 
-  // Pick target segment
-  if (selectedGenre === 'RANDOM') {
+  // Determine target segment
+  if (selGenre === 'RANDOM') {
     targetSeg = Math.floor(Math.random() * N);
   } else {
-    const idx = SEGMENTS.findIndex(s => s.name === selectedGenre);
+    const idx = SEGMENTS.findIndex(s => s.name === selGenre);
     targetSeg = idx >= 0 ? idx : Math.floor(Math.random() * N);
   }
 
-  const segMid = targetSeg * SEG_ANG + SEG_ANG / 2;
-  const desired = -Math.PI/2 - segMid + (Math.random()-0.5)*SEG_ANG*0.55;
-  const extra   = (5 + Math.floor(Math.random()*4)) * Math.PI * 2;
+  const segMid  = targetSeg * SEG_ANG + SEG_ANG / 2;
+  const desired = -Math.PI/2 - segMid + (Math.random()-0.5) * SEG_ANG * 0.55;
+  const extra   = (5 + Math.floor(Math.random() * 4)) * Math.PI * 2;
   const delta   = ((desired - wheelAngle) % (Math.PI*2) + Math.PI*2) % (Math.PI*2);
 
-  startWA = wheelAngle; endWA = wheelAngle + extra + delta;
-  startBA = ballAngle;  endBA = ballAngle  - (10 + Math.random()*6) * Math.PI * 2;
-  startTime = null; ballRad = rTrack;
+  startWA = wheelAngle;  endWA = wheelAngle + extra + delta;
+  startBA = ballAngle;   endBA = ballAngle  - (10 + Math.random() * 6) * Math.PI * 2;
+  animStart = null;      ballRad = rTrack;
 
   requestAnimationFrame(animFrame);
 }
 
 function animFrame(ts) {
-  if (!startTime) startTime = ts;
-  const t = Math.min((ts - startTime) / DUR, 1);
+  if (!animStart) animStart = ts;
+  const t = Math.min((ts - animStart) / DUR, 1);
   const e = easeOutQuart(t);
 
   wheelAngle = startWA + (endWA - startWA) * e;
   ballAngle  = startBA + (endBA - startBA) * e;
-
   const fallT = Math.max(0, (t - 0.65) / 0.35);
   ballRad = rTrack - (rTrack - rSegOut + 10) * fallT * fallT;
 
@@ -759,93 +580,255 @@ function animFrame(ts) {
     requestAnimationFrame(animFrame);
   } else {
     wheelAngle = endWA; ballAngle = endBA; ballRad = rSegOut - 8;
-    spinning = false; resultSeg = targetSeg;
+    spinning  = false;
+    resultSeg = targetSeg;
     drawWheel();
-    showResult();
     document.getElementById('spinBtn').disabled = false;
+    triggerFetch();
     launchConfetti();
   }
 }
 
-/* ─── Result ─── */
-function showResult() {
-  const seg      = SEGMENTS[targetSeg];
-  const genreKey = seg.name === 'SURPRISE' ? 'SURPRISE' : seg.name;
-  lastGenreKey   = genreKey;
-  const pool     = getPool(genreKey);
-  if (!pool.length) {
-    lastGenreKey = '';
-    document.getElementById('resultBox').classList.remove('show');
-    document.getElementById('statsBar').textContent =
-      'No titles match your filters — try broadening them';
-    return;
+/* ═══════════════════════════════════
+   TMDB FETCH
+   ═══════════════════════════════════ */
+async function triggerFetch() {
+  const genreName = SEGMENTS[targetSeg].name;  // e.g. 'ACTION', 'SURPRISE'
+  const genreKey  = genreName === 'SURPRISE'
+    ? GENRE_KEYS[Math.floor(Math.random() * GENRE_KEYS.length)]
+    : genreName;
+
+  lastFetchGenre = genreKey;
+
+  // Determine media type
+  let mediaType;
+  if (selType === 'MOVIE')       mediaType = 'movie';
+  else if (selType === 'TV')     mediaType = 'tv';
+  else                           mediaType = Math.random() < 0.5 ? 'movie' : 'tv';
+
+  lastFetchType = mediaType;
+  retryCount = 0;
+  showLoading(genreKey);
+  await doFetch(genreKey, mediaType);
+}
+
+async function fetchAnother() {
+  if (!lastFetchGenre) return;
+  let mediaType = lastFetchType;
+  if (selType === 'BOTH') mediaType = Math.random() < 0.5 ? 'movie' : 'tv';
+  showLoading(lastFetchGenre);
+  await doFetch(lastFetchGenre, mediaType);
+}
+
+async function retryFetch() {
+  if (!lastFetchGenre) return;
+  retryCount++;
+  if (retryCount > 3) { showError('Too many retries. Please check your connection.'); return; }
+  showLoading(lastFetchGenre);
+  await doFetch(lastFetchGenre, lastFetchType || 'movie');
+}
+
+async function tmdbGet(path) {
+  const sep     = path.includes('?') ? '&' : '?';
+  const fullUrl = `${TMDB}${path}${sep}api_key=${API_KEY}`;
+  let lastErr;
+
+  for (const makeUrl of PROXIES) {
+    const url = makeUrl(fullUrl);
+    try {
+      const res = await fetch(url);
+      if (!res.ok) {
+        let msg = `HTTP ${res.status}`;
+        try { const j = await res.json(); msg = j.status_message || msg; } catch(_) {}
+        throw new Error(msg);
+      }
+      const raw = await res.json();
+      // allorigins wraps the response in {contents:"..."}
+      return typeof raw.contents === 'string' ? JSON.parse(raw.contents) : raw;
+    } catch(e) {
+      lastErr = e;
+      if (e.message !== 'Failed to fetch') throw e; // real API error — stop trying
+      // otherwise try next proxy
+    }
   }
-  currentMovieIdx = Math.floor(Math.random() * pool.length);
-  renderMovie(pool[currentMovieIdx]);
+  throw lastErr || new Error('Network unreachable');
 }
 
-function nextMovie() {
-  if (!lastGenreKey) return;
-  const pool = getPool(lastGenreKey);
-  if (!pool.length) return;
-  currentMovieIdx = (currentMovieIdx + 1) % pool.length;
-  renderMovie(pool[currentMovieIdx]);
-}
+async function doFetch(genreKey, mediaType) {
+  try {
+    const gids = GENRE_IDS[genreKey];
+    const gid  = gids ? gids[mediaType] : null;
+    const page = Math.floor(Math.random() * 8) + 1;
 
-function fmtDur(mins) {
-  if (mins >= 60) {
-    const h = Math.floor(mins/60), m = mins % 60;
-    return m ? `${h}h ${m}m` : `${h}h`;
+    let path = `/discover/${mediaType}?sort_by=popularity.desc&page=${page}&include_adult=false&language=en-US`;
+    if (gid) path += `&with_genres=${gid}`;
+
+    const data = await tmdbGet(path);
+
+    const results = data.results;
+    if (!results || results.length === 0) throw new Error('No results returned for this genre');
+
+    const good = results.filter(r => r.overview && r.overview.length > 20);
+    const pool = good.length > 0 ? good : results;
+    const item = pool[Math.floor(Math.random() * pool.length)];
+
+    // Watch providers (non-fatal if it fails)
+    let providers = [], watchLink = `https://www.themoviedb.org/${mediaType}/${item.id}`;
+    try {
+      const provData  = await tmdbGet(`/${mediaType}/${item.id}/watch/providers`);
+      const region    = provData.results?.[selRegion] || {};
+      providers = region.flatrate || region.rent || region.buy || [];
+      if (region.link) watchLink = region.link;
+    } catch(_) { /* providers unavailable — not fatal */ }
+
+    renderResult({
+      title:     item.title || item.name || 'Untitled',
+      year:      (item.release_date || item.first_air_date || '').slice(0, 4),
+      poster:    item.poster_path ? IMG_W500 + item.poster_path : null,
+      rating:    item.vote_average ? item.vote_average.toFixed(1) : null,
+      votes:     item.vote_count  ? item.vote_count.toLocaleString() : '',
+      overview:  item.overview || '',
+      typeLabel: mediaType === 'movie' ? 'Movie' : 'TV Show',
+      providers, watchLink, genreKey,
+    });
+
+  } catch (err) {
+    console.error('[TMDB]', err);
+    showError(`<b>Error:</b> ${err.message}<br><br>
+      <small style="opacity:.6">Key: ${API_KEY.slice(0,8)}…&nbsp;|&nbsp;${TMDB}</small><br><br>
+      Try spinning again. If this repeats, the API key may need activation at themoviedb.org`);
   }
-  return `${mins}m`;
 }
 
-function renderMovie(m) {
-  const displayGenre = m._genre || lastGenreKey;
-  document.getElementById('rGenre').textContent = displayGenre;
-  document.getElementById('rTitle').textContent = m.title;
+/* ═══════════════════════════════════
+   RENDER
+   ═══════════════════════════════════ */
+function renderResult({ title, year, poster, rating, votes, overview, typeLabel, providers, watchLink, genreKey }) {
+  hideAll();
 
-  const ottUrl = (OTT_LINKS[m.ott] || 'https://www.google.com/search?q=') + encodeURIComponent(m.title);
-  const ottEl  = document.getElementById('rOtt');
-  ottEl.textContent            = m.ott + ' ↗';
-  ottEl.style.background       = OTT_COLORS[m.ott] || '#555';
-  ottEl.style.color            = '#fff';
-  ottEl.style.cursor           = 'pointer';
-  ottEl.style.textDecoration   = 'none';
-  ottEl.onclick                = () => window.open(ottUrl, '_blank');
+  document.getElementById('rGenre').textContent = genreKey;
 
-  const watchBtn = document.getElementById('watchBtn');
-  watchBtn.href             = ottUrl;
-  watchBtn.style.color      = '#c9a84c';
-  watchBtn.style.borderColor = 'rgba(201,168,64,0.35)';
+  // Poster
+  const imgEl = document.getElementById('rPoster');
+  const phEl  = document.getElementById('rPosterPh');
+  if (poster) {
+    imgEl.src = poster;
+    imgEl.style.display = 'block';
+    phEl.style.display  = 'none';
+  } else {
+    imgEl.style.display = 'none';
+    phEl.style.display  = 'flex';
+  }
 
-  document.getElementById('rType').textContent = m.type;
-  document.getElementById('rImdb').textContent = '★ ' + m.rating.toFixed(1);
-  document.getElementById('rSub').textContent  =
-    `${m.country} · ${m.lang} · ${m.year} · ${fmtDur(m.dur)} · ${m.votes.toLocaleString()} votes`;
-  document.getElementById('rDesc').textContent = m.desc;
+  document.getElementById('rTitle').textContent = title;
+
+  // Badges
+  const badgesEl = document.getElementById('rBadges');
+  badgesEl.innerHTML = '';
+  const typeBadge = document.createElement('span');
+  typeBadge.className = 'badge';
+  typeBadge.textContent = typeLabel;
+  typeBadge.style.cssText = 'background:rgba(201,168,64,0.18);color:#d4af37;border:1px solid rgba(201,168,64,0.3);';
+  badgesEl.appendChild(typeBadge);
+
+  document.getElementById('rRating').textContent = rating ? `★ ${rating}  (${votes} votes)` : '';
+  document.getElementById('rYearLang').textContent = year || '';
+  document.getElementById('rOverview').textContent = overview;
+
+  // Region label
+  const regionName = Object.entries(REGIONS).find(([,c]) => c === selRegion)?.[0] || selRegion;
+  document.getElementById('rRegionLabel').textContent = regionName;
+
+  // Providers
+  const provRow = document.getElementById('providersRow');
+  provRow.innerHTML = '';
+  if (providers.length === 0) {
+    provRow.innerHTML = '<span class="no-provider">Not available for streaming in this region</span>';
+  } else {
+    providers.slice(0, 6).forEach(p => {
+      const a = document.createElement('a');
+      a.className = 'provider-item';
+      a.href = watchLink;
+      a.target = '_blank';
+      a.title = p.provider_name;
+      if (p.logo_path) {
+        const logo = document.createElement('img');
+        logo.className = 'provider-logo';
+        logo.src = LOGO_W92 + p.logo_path;
+        logo.alt = p.provider_name;
+        a.appendChild(logo);
+      }
+      const name = document.createElement('span');
+      name.className = 'provider-name';
+      name.textContent = p.provider_name;
+      a.appendChild(name);
+      provRow.appendChild(a);
+    });
+  }
+
+  // Watch Now button
+  document.getElementById('watchBtn').href = watchLink;
+
   document.getElementById('resultBox').classList.add('show');
 }
 
-/* ─── Confetti ─── */
+/* ── UI state helpers ── */
+function hideAll() {
+  document.getElementById('loadingBox').classList.remove('show');
+  document.getElementById('resultBox').classList.remove('show');
+  document.getElementById('errorBox').classList.remove('show');
+}
+
+function showLoading(genreKey) {
+  hideAll();
+  document.getElementById('loadingGenre').textContent = `Finding ${genreKey} picks…`;
+  document.getElementById('loadingBox').classList.add('show');
+}
+
+function showError(msg) {
+  hideAll();
+  document.getElementById('errorMsg').innerHTML = msg;
+  document.getElementById('errorBox').classList.add('show');
+}
+
+/* ── Confetti ── */
 function launchConfetti() {
   const colors = ['#d4af37','#c41e3a','#1b5e20','#1565c0','#f5e6c8','#fff'];
-  for (let i=0;i<48;i++) {
+  for (let i = 0; i < 48; i++) {
     setTimeout(() => {
       const el = document.createElement('div');
       el.className = 'confetti-piece';
-      el.style.left = Math.random()*100 + 'vw';
-      el.style.top  = '-20px';
-      el.style.background = colors[Math.floor(Math.random()*colors.length)];
-      el.style.width  = (6+Math.random()*8) + 'px';
-      el.style.height = (8+Math.random()*12) + 'px';
-      el.style.animationDuration = (1.5+Math.random()*2) + 's';
+      el.style.cssText = `left:${Math.random()*100}vw;top:-20px;background:${colors[i%colors.length]};width:${6+Math.random()*8}px;height:${8+Math.random()*12}px;animation-duration:${1.5+Math.random()*2}s;`;
       document.body.appendChild(el);
       setTimeout(() => el.remove(), 4000);
-    }, i*30);
+    }, i * 30);
   }
 }
 
+/* ── API health check on load ── */
+(async () => {
+  const indicator = document.createElement('div');
+  indicator.style.cssText = 'font-size:10px;letter-spacing:2px;text-align:center;margin-top:8px;color:rgba(201,168,64,0.5);';
+  indicator.textContent = '● Checking TMDB connection…';
+  document.querySelector('.side-col').appendChild(indicator);
+
+  try {
+    const cfg = await tmdbGet(`/configuration`);
+    if (cfg.images) {
+      indicator.style.color = 'rgba(100,200,100,0.7)';
+      indicator.textContent = '● TMDB connected — spin the wheel!';
+    } else {
+      throw new Error('Unexpected response');
+    }
+  } catch (e) {
+    indicator.style.color = 'rgba(255,100,100,0.8)';
+    indicator.textContent = `● TMDB error: ${e.message}`;
+  }
+
+  setTimeout(() => indicator.remove(), 8000);
+})();
+
+/* ── Init ── */
 drawWheel();
 </script>
 </body>
