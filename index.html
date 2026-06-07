@@ -536,13 +536,8 @@ function spin() {
   spinning  = true;
   document.getElementById('spinBtn').disabled = true;
 
-  // Determine target segment
-  if (selGenre === 'RANDOM') {
-    targetSeg = Math.floor(Math.random() * N);
-  } else {
-    const idx = SEGMENTS.findIndex(s => s.name === selGenre);
-    targetSeg = idx >= 0 ? idx : Math.floor(Math.random() * N);
-  }
+  // Wheel always picks the segment randomly
+  targetSeg = Math.floor(Math.random() * N);
 
   const segMid  = targetSeg * SEG_ANG + SEG_ANG / 2;
   const desired = -Math.PI/2 - segMid + (Math.random()-0.5) * SEG_ANG * 0.55;
