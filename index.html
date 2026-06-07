@@ -153,8 +153,6 @@ body {
 .r-overview {
   font-size: 12px; color: rgba(245,230,200,0.72); line-height: 1.6;
   margin-bottom: 10px;
-  display: -webkit-box; -webkit-line-clamp: 4;
-  -webkit-box-orient: vertical; overflow: hidden;
 }
 
 /* Providers */
@@ -209,11 +207,7 @@ body {
   .side-col { width: 100%; max-width: 480px; }
 }
 
-/* Wheel wrapper — lets JS scale the canvas on small screens */
-.wheel-visual {
-  display: flex; flex-direction: column; align-items: center;
-  transform-origin: top center;
-}
+.wheel-visual { display: flex; flex-direction: column; align-items: center; }
 .wheel-col { display: flex; flex-direction: column; align-items: center; gap: 0; }
 </style>
 </head>
@@ -233,7 +227,7 @@ body {
   <div class="wheel-col">
     <div class="wheel-visual" id="wheelVisual">
       <div class="pointer-wrap"></div>
-      <canvas id="wc" width="430" height="430" onclick="spin()"></canvas>
+      <canvas id="wc" onclick="spin()" style="display:block;border-radius:50%;box-shadow:0 0 0 4px #c9a840,0 0 0 8px #3d1f0a,0 12px 50px rgba(0,0,0,0.7);cursor:pointer;"></canvas>
     </div>
     <div class="chip-row" style="margin-top:16px;">
       <div class="casino-chip" style="background:#c1121f;color:white;">5</div>
@@ -388,25 +382,26 @@ const SEGMENTS = [
 
 const canvas = document.getElementById('wc');
 const ctx    = canvas.getContext('2d');
-const CX = 215, CY = 215, R = 200;
 
-const rOuter  = R;
-const rGold   = R * 0.970;
-const rTrack  = R * 0.900;
-const rSegOut = R * 0.860;
-const rSegIn  = R * 0.635;
-const rRotor  = R * 0.615;
-const rHub1   = R * 0.190;
-const rHub2   = R * 0.130;
-const rHub3   = R * 0.075;
-const rHub4   = R * 0.035;
+// Responsive: set canvas size once; all drawing derives from canvas.width
+function initCanvasSize() {
+  const size = Math.min(window.innerWidth - 24, 430);
+  canvas.width  = size;
+  canvas.height = size;
+}
+initCanvasSize();
+window.addEventListener('resize', () => { initCanvasSize(); drawWheel(); });
+
+// All radii are fractions of R; R is derived per drawWheel call
+const F = { outer:.970, gold:.960, track:.900, segOut:.860, segIn:.635,
+            rotor:.615, hub1:.190, hub2:.130, hub3:.075, hub4:.035 };
 
 const N       = SEGMENTS.length;
 const SEG_ANG = (Math.PI * 2) / N;
 
 let wheelAngle = 0;
 let ballAngle  = -Math.PI / 2;
-let ballRad    = rTrack;
+let ballFrac   = F.track;   // ball position as fraction of R
 let spinning   = false;
 let resultSeg  = -1;
 let targetSeg  = 0;
@@ -417,11 +412,27 @@ const DUR = 5800;
 function easeOutQuart(t) { return 1 - Math.pow(1 - t, 4); }
 
 function drawWheel() {
-  ctx.clearRect(0, 0, 430, 430);
+  const sz  = canvas.width;
+  const CX  = sz / 2, CY = sz / 2;
+  const R   = sz / 2 - sz * 0.035;        // slight inset so rim isn't clipped
+  const ws  = sz / 430;                    // scale factor for fonts / dots / ball
+
+  const rOuter  = R;
+  const rGold   = R * F.gold;
+  const rTrack  = R * F.track;
+  const rSegOut = R * F.segOut;
+  const rSegIn  = R * F.segIn;
+  const rRotor  = R * F.rotor;
+  const rHub1   = R * F.hub1;
+  const rHub2   = R * F.hub2;
+  const rHub3   = R * F.hub3;
+  const rHub4   = R * F.hub4;
+
+  ctx.clearRect(0, 0, sz, sz);
 
   // Outer shadow
   ctx.save();
-  ctx.shadowColor = 'rgba(0,0,0,0.7)'; ctx.shadowBlur = 28;
+  ctx.shadowColor = 'rgba(0,0,0,0.7)'; ctx.shadowBlur = 28 * ws;
   ctx.beginPath(); ctx.arc(CX, CY, rOuter, 0, Math.PI*2);
   ctx.fillStyle = '#1e0a01'; ctx.fill();
   ctx.restore();
@@ -432,15 +443,15 @@ function drawWheel() {
 
   // Outer gold rim
   ctx.beginPath(); ctx.arc(CX, CY, rGold, 0, Math.PI*2);
-  ctx.strokeStyle = '#c9a840'; ctx.lineWidth = 5; ctx.stroke();
+  ctx.strokeStyle = '#c9a840'; ctx.lineWidth = 5 * ws; ctx.stroke();
 
   // Ball track groove
-  ctx.beginPath(); ctx.arc(CX, CY, rTrack+5, 0, Math.PI*2);
-  ctx.strokeStyle = 'rgba(180,130,30,0.25)'; ctx.lineWidth = 18; ctx.stroke();
+  ctx.beginPath(); ctx.arc(CX, CY, rTrack + 5*ws, 0, Math.PI*2);
+  ctx.strokeStyle = 'rgba(180,130,30,0.25)'; ctx.lineWidth = 18 * ws; ctx.stroke();
 
   // Segment ring outer edge marker
-  ctx.beginPath(); ctx.arc(CX, CY, rSegOut+2, 0, Math.PI*2);
-  ctx.strokeStyle = '#a07820'; ctx.lineWidth = 2; ctx.stroke();
+  ctx.beginPath(); ctx.arc(CX, CY, rSegOut + 2*ws, 0, Math.PI*2);
+  ctx.strokeStyle = '#a07820'; ctx.lineWidth = 2 * ws; ctx.stroke();
 
   /* ── Rotating segments ── */
   ctx.save();
@@ -464,21 +475,21 @@ function drawWheel() {
     ctx.beginPath();
     ctx.moveTo(rSegIn  * Math.cos(a0), rSegIn  * Math.sin(a0));
     ctx.lineTo(rSegOut * Math.cos(a0), rSegOut * Math.sin(a0));
-    ctx.strokeStyle = '#c9a840'; ctx.lineWidth = 2; ctx.stroke();
+    ctx.strokeStyle = '#c9a840'; ctx.lineWidth = 2 * ws; ctx.stroke();
 
     // Pocket dot
     const dotR = (rSegOut + rTrack) / 2;
     ctx.beginPath();
-    ctx.arc(Math.cos(a0)*dotR, Math.sin(a0)*dotR, 3, 0, Math.PI*2);
+    ctx.arc(Math.cos(a0)*dotR, Math.sin(a0)*dotR, 3*ws, 0, Math.PI*2);
     ctx.fillStyle = '#c9a840'; ctx.fill();
 
     // Segment label
-    const textR = (rSegOut + rSegIn) / 2 + 2;
+    const textR = (rSegOut + rSegIn) / 2 + 2*ws;
     ctx.save();
     ctx.translate(Math.cos(mid)*textR, Math.sin(mid)*textR);
     ctx.rotate(mid + Math.PI/2);
     ctx.fillStyle    = hi ? '#1a0800' : '#fff';
-    ctx.font         = 'bold 10px Arial';
+    ctx.font         = `bold ${Math.max(8, Math.round(10*ws))}px Arial`;
     ctx.textAlign    = 'center';
     ctx.textBaseline = 'middle';
     ctx.fillText(SEGMENTS[i].name, 0, 0);
@@ -486,14 +497,14 @@ function drawWheel() {
   }
 
   ctx.beginPath(); ctx.arc(0,0,rSegOut,0,Math.PI*2);
-  ctx.strokeStyle='#c9a840'; ctx.lineWidth=1.5; ctx.stroke();
+  ctx.strokeStyle='#c9a840'; ctx.lineWidth=1.5*ws; ctx.stroke();
   ctx.beginPath(); ctx.arc(0,0,rSegIn,0,Math.PI*2);
-  ctx.strokeStyle='#c9a840'; ctx.lineWidth=2; ctx.stroke();
+  ctx.strokeStyle='#c9a840'; ctx.lineWidth=2*ws; ctx.stroke();
   ctx.restore();
 
   // Inner rotor
   ctx.beginPath(); ctx.arc(CX,CY,rRotor,0,Math.PI*2); ctx.fillStyle='#1c0c02'; ctx.fill();
-  ctx.beginPath(); ctx.arc(CX,CY,rRotor,0,Math.PI*2); ctx.strokeStyle='#c9a840'; ctx.lineWidth=2; ctx.stroke();
+  ctx.beginPath(); ctx.arc(CX,CY,rRotor,0,Math.PI*2); ctx.strokeStyle='#c9a840'; ctx.lineWidth=2*ws; ctx.stroke();
 
   // Rotor diamonds
   ctx.save();
@@ -506,7 +517,7 @@ function drawWheel() {
     ctx.translate(Math.cos(a)*dr, Math.sin(a)*dr);
     ctx.rotate(a);
     ctx.beginPath();
-    ctx.moveTo(0,-6); ctx.lineTo(4,0); ctx.lineTo(0,6); ctx.lineTo(-4,0);
+    ctx.moveTo(0,-6*ws); ctx.lineTo(4*ws,0); ctx.lineTo(0,6*ws); ctx.lineTo(-4*ws,0);
     ctx.closePath();
     ctx.fillStyle = '#c9a840'; ctx.fill();
     ctx.restore();
@@ -519,13 +530,15 @@ function drawWheel() {
   ctx.beginPath(); ctx.arc(CX,CY,rHub3,0,Math.PI*2); ctx.fillStyle='#d4af37'; ctx.fill();
   ctx.beginPath(); ctx.arc(CX,CY,rHub4,0,Math.PI*2); ctx.fillStyle='#1c0c02'; ctx.fill();
 
-  // Ball
-  const bx = CX + Math.cos(ballAngle) * ballRad;
-  const by = CY + Math.sin(ballAngle) * ballRad;
-  ctx.beginPath(); ctx.arc(bx+1,by+2,7,0,Math.PI*2); ctx.fillStyle='rgba(0,0,0,0.3)'; ctx.fill();
-  ctx.beginPath(); ctx.arc(bx,by,7,0,Math.PI*2); ctx.fillStyle='#f2f0ec'; ctx.fill();
+  // Ball — position = ballFrac * R
+  const bRad = ballFrac * R;
+  const bx   = CX + Math.cos(ballAngle) * bRad;
+  const by   = CY + Math.sin(ballAngle) * bRad;
+  const br   = 7 * ws;
+  ctx.beginPath(); ctx.arc(bx+ws,by+2*ws,br,0,Math.PI*2); ctx.fillStyle='rgba(0,0,0,0.3)'; ctx.fill();
+  ctx.beginPath(); ctx.arc(bx,by,br,0,Math.PI*2); ctx.fillStyle='#f2f0ec'; ctx.fill();
   ctx.strokeStyle='#aaa'; ctx.lineWidth=0.8; ctx.stroke();
-  ctx.beginPath(); ctx.arc(bx-2.5,by-2.5,3,0,Math.PI*2); ctx.fillStyle='rgba(255,255,255,0.7)'; ctx.fill();
+  ctx.beginPath(); ctx.arc(bx-2.5*ws,by-2.5*ws,3*ws,0,Math.PI*2); ctx.fillStyle='rgba(255,255,255,0.7)'; ctx.fill();
 }
 
 /* ═══════════════════════════════════
@@ -548,7 +561,7 @@ function spin() {
 
   startWA = wheelAngle;  endWA = wheelAngle + extra + delta;
   startBA = ballAngle;   endBA = ballAngle  - (10 + Math.random() * 6) * Math.PI * 2;
-  animStart = null;      ballRad = rTrack;
+  animStart = null;      ballFrac = F.track;
 
   requestAnimationFrame(animFrame);
 }
@@ -561,14 +574,14 @@ function animFrame(ts) {
   wheelAngle = startWA + (endWA - startWA) * e;
   ballAngle  = startBA + (endBA - startBA) * e;
   const fallT = Math.max(0, (t - 0.65) / 0.35);
-  ballRad = rTrack - (rTrack - rSegOut + 10) * fallT * fallT;
+  ballFrac = F.track - (F.track - F.segOut + 0.02) * fallT * fallT;
 
   drawWheel();
 
   if (t < 1) {
     requestAnimationFrame(animFrame);
   } else {
-    wheelAngle = endWA; ballAngle = endBA; ballRad = rSegOut - 8;
+    wheelAngle = endWA; ballAngle = endBA; ballFrac = F.segOut - 0.02;
     spinning  = false;
     resultSeg = targetSeg;
     drawWheel();
@@ -848,22 +861,6 @@ function launchConfetti() {
   setTimeout(() => indicator.remove(), 8000);
 })();
 
-/* ── Responsive wheel scaling ── */
-function scaleWheel() {
-  const visual  = document.getElementById('wheelVisual');
-  const maxW    = window.innerWidth - 32;          // 16px padding each side
-  const natural = 430 + 22;                        // canvas + pointer height
-  if (maxW < 430) {
-    const s = maxW / 430;
-    visual.style.transform      = `scale(${s})`;
-    visual.style.marginBottom   = `${Math.round(-(natural * (1 - s)))}px`;
-  } else {
-    visual.style.transform    = '';
-    visual.style.marginBottom = '';
-  }
-}
-window.addEventListener('resize', scaleWheel);
-scaleWheel();
 
 /* ── Init ── */
 drawWheel();
