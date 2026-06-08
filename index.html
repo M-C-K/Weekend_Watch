@@ -55,12 +55,6 @@ body {
 
 /* ── Wheel col ── */
 .wheel-col { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
-.pointer-wrap {
-  width: 0; height: 0;
-  border-left: 12px solid transparent; border-right: 12px solid transparent;
-  border-top: 22px solid #d4af37; margin-bottom: -11px; z-index: 10;
-  filter: drop-shadow(0 3px 6px rgba(0,0,0,0.7));
-}
 #wc {
   display: block; cursor: pointer; border-radius: 50%;
   box-shadow: 0 0 0 4px #c9a840, 0 0 0 8px #3d1f0a, 0 12px 50px rgba(0,0,0,0.7);
@@ -226,7 +220,6 @@ body {
   <!-- Wheel -->
   <div class="wheel-col">
     <div class="wheel-visual" id="wheelVisual">
-      <div class="pointer-wrap"></div>
       <canvas id="wc" onclick="spin()" style="display:block;border-radius:50%;box-shadow:0 0 0 4px #c9a840,0 0 0 8px #3d1f0a,0 12px 50px rgba(0,0,0,0.7);cursor:pointer;"></canvas>
     </div>
     <div class="chip-row" style="margin-top:16px;">
@@ -322,7 +315,8 @@ const GENRE_IDS = {
   'THRILLER': { movie: '53',      tv: '9648'  },
   'SCI-FI':   { movie: '878',     tv: '10765' },
   'FANTASY':  { movie: '14',      tv: '10765' },
-  'ROM-COM':  { movie: '35,10749',tv: '35,18' }, // Comedy + Romance (movie) / Comedy + Drama (TV)
+  'ROM-COM':    { movie: '35,10749', tv: '35,18' },
+  'DOCU-FICTION':{ movie: '99',      tv: '99'   }, // Documentary
 };
 
 const GENRE_KEYS = Object.keys(GENRE_IDS);
@@ -376,8 +370,8 @@ const SEGMENTS = [
   { name: 'CRIME',    color: '#111111' },
   { name: 'THRILLER', color: '#b22222' },
   { name: 'SCI-FI',   color: '#111111' },
-  { name: 'FANTASY',  color: '#b22222' },
-  { name: 'SURPRISE', color: '#1b5e20' },
+  { name: 'FANTASY',       color: '#b22222' },
+  { name: 'DOCU-FICTION',  color: '#0a6b6b' },
 ];
 
 const canvas = document.getElementById('wc');
@@ -551,16 +545,12 @@ function spin() {
   spinning  = true;
   document.getElementById('spinBtn').disabled = true;
 
-  // Wheel always picks the segment randomly
-  targetSeg = Math.floor(Math.random() * N);
+  // Pure random spins — winning segment is determined by where the ball lands
+  const wheelSpins = (5 + Math.random() * 4) * Math.PI * 2;
+  const ballSpins  = (10 + Math.random() * 6) * Math.PI * 2;
 
-  const segMid  = targetSeg * SEG_ANG + SEG_ANG / 2;
-  const desired = -Math.PI/2 - segMid + (Math.random()-0.5) * SEG_ANG * 0.55;
-  const extra   = (5 + Math.floor(Math.random() * 4)) * Math.PI * 2;
-  const delta   = ((desired - wheelAngle) % (Math.PI*2) + Math.PI*2) % (Math.PI*2);
-
-  startWA = wheelAngle;  endWA = wheelAngle + extra + delta;
-  startBA = ballAngle;   endBA = ballAngle  - (10 + Math.random() * 6) * Math.PI * 2;
+  startWA = wheelAngle;  endWA = wheelAngle + wheelSpins;
+  startBA = ballAngle;   endBA = ballAngle  - ballSpins;   // counter-clockwise
   animStart = null;      ballFrac = F.track;
 
   requestAnimationFrame(animFrame);
@@ -583,6 +573,9 @@ function animFrame(ts) {
   } else {
     wheelAngle = endWA; ballAngle = endBA; ballFrac = F.segOut - 0.02;
     spinning  = false;
+    // Which segment did the ball land in?
+    const relAngle = ((endBA - endWA) % (Math.PI*2) + Math.PI*2) % (Math.PI*2);
+    targetSeg = Math.floor(relAngle / SEG_ANG) % N;
     resultSeg = targetSeg;
     drawWheel();
     document.getElementById('spinBtn').disabled = false;
@@ -595,10 +588,7 @@ function animFrame(ts) {
    TMDB FETCH
    ═══════════════════════════════════ */
 async function triggerFetch() {
-  const genreName = SEGMENTS[targetSeg].name;  // e.g. 'ACTION', 'SURPRISE'
-  const genreKey  = genreName === 'SURPRISE'
-    ? GENRE_KEYS[Math.floor(Math.random() * GENRE_KEYS.length)]
-    : genreName;
+  const genreKey = SEGMENTS[targetSeg].name;
 
   lastFetchGenre = genreKey;
 
